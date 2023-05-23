@@ -8,5 +8,7 @@ urlpatterns = [
     path('pagedetail/<int:pk>', views.page_detail, name='page'),
     path('faq', views.faq, name='faq'),
     path('inquiry', views.inquiry, name='inquiry'),
+    path('gallery', views.gallery, name='gallery'),
+    path('gallery_img/<int:pk>', views.gallery_detail, name='gallery_img'),
 ]  
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Banners, Service, Pages, Faq
+from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage
 from .forms import InquiryForm
 
 # Create your views here.
@@ -28,3 +28,15 @@ def inquiry(request):
             msg = 'Data has been Sended'
     form = InquiryForm(request.POST)
     return render(request, 'inquiry.html', {'form': form, 'msg': msg})
+
+# Show galleries
+def gallery(request):
+    galleries = Gallery.objects.all().order_by('-id') # descending
+    return render(request, 'gallery.html', {'galleries': galleries})
+
+# Show galleries
+def gallery_detail(request,pk):
+    gallery = Gallery.objects.get(id=pk)
+    gallery_imgs = GalleryImage.objects.filter(gallery=gallery)
+    return render(request, 'gallery_img.html', {'gallery_imgs': gallery_imgs, 'gallery': gallery})
+
