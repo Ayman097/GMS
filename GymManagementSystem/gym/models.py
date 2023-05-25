@@ -86,3 +86,22 @@ class GalleryImage(models.Model):
     
     def image_tag(self):
         return mark_safe('<img src="%s" width="100" />' % (self.img.url) )
+    
+# Subscription Plans
+class SubscriptionPlans(models.Model):
+    title = models.CharField(max_length=150)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    highlight_status = models.BooleanField(default=False, null=True)
+
+    def __str__(self):
+        return self.title
+    class Meta:
+        verbose_name_plural = 'Subscription Plans'
+    
+# Pricing Plane Feature
+class SubscriptionPlansFeature(models.Model):
+    pricing = models.ManyToManyField(SubscriptionPlans)
+    title = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.title

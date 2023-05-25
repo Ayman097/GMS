@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage
+from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature
 from .forms import InquiryForm
 
 # Create your views here.
@@ -39,4 +39,11 @@ def gallery_detail(request,pk):
     gallery = Gallery.objects.get(id=pk)
     gallery_imgs = GalleryImage.objects.filter(gallery=gallery)
     return render(request, 'gallery_img.html', {'gallery_imgs': gallery_imgs, 'gallery': gallery})
+
+# Pricing
+def pricing(request):
+    pricing = SubscriptionPlans.objects.all()
+    features = SubscriptionPlansFeature.objects.all()
+    print(pricing)
+    return render(request, 'pricing.html', {'plans': pricing, 'features': features})
 
