@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <main>
     <!-- banner Start -->
@@ -53,18 +53,9 @@
                 <div class="col-md-6 offset-1">
                         <h1 class="mb-4 section-heading">Gallery <a href="#" class="float-end btn btn-info text-white mt-2">View All</a></h1>
                         <div class="gallery">
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/cardio-1.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/cardio-1.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/cardio-1.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/dance-3.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
-                            <a data-lightbox="home-gallery" href="imgs/body-2.jpg"><img src="imgs/body-2.jpg" width="155" class="img-thumbnail" alt="..."></a>
+                          {% for image in galleryImgs %}
+                            <a href="{{ image.img.url }}" data-lightbox="gallery"><img src="{{ image.img.url }}" width="155" class="img-thumbnail" alt="{{ image.alt_text }}"></a>
+                          {% endfor %}
                         </div>
                 </div>
             </div>
@@ -74,5 +65,10 @@
 
 </main>
 <!-- End -->
+
+<!-- Light Box -->
+<link rel="stylesheet" type="text/css" href="{% static 'lightbox2-2.11.3/dist/css/lightbox.min.css' %}" />
+
+<script type="text/javascript" src="{% static 'lightbox2-2.11.3/dist/js/lightbox.min.js' %}"></script>
 
 {% endblock %}

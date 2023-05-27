@@ -6,8 +6,9 @@ from .forms import InquiryForm
 def home(request):
     banners = Banners.objects.all()
     services = Service.objects.all()[:3] # Fetch only 3
+    galleryImgs = GalleryImage.objects.all().order_by('-id')[:9]
 
-    return render(request, 'home.html', {'banners': banners, 'services': services})
+    return render(request, 'home.html', {'banners': banners, 'services': services, 'galleryImgs': galleryImgs})
 
 def page_detail(request, pk):
     page = Pages.objects.get(id=pk)
