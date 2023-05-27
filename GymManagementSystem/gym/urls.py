@@ -11,5 +11,6 @@ urlpatterns = [
     path('gallery', views.gallery, name='gallery'),
     path('gallery_img/<int:pk>', views.gallery_detail, name='gallery_img'),
     path('pricing', views.pricing, name='pricing'),
+    path('accounts/signup', views.signup, name='signup'),
 ]  
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

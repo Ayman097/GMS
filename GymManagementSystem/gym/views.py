@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature
-from .forms import InquiryForm
+from .forms import InquiryForm, SignUp
 
 # Create your views here.
 def home(request):
@@ -43,8 +43,21 @@ def gallery_detail(request,pk):
 
 # Pricing
 def pricing(request):
-    pricing = SubscriptionPlans.objects.all()
+    pricing = SubscriptionPlans.objects.all().order_by('price')
     features = SubscriptionPlansFeature.objects.all()
-    print(pricing)
+    
     return render(request, 'pricing.html', {'plans': pricing, 'features': features})
+
+# Sign Up
+def signup(request):
+    msg = ''
+    if request.method == 'POST':
+        form = SignUp(request.POST)
+        if form.is_valid():
+            form.save()
+            msg = "Thanks For Registration"
+            
+    form = SignUp
+
+    return render(request, 'registration/signup.html', {'form':form, 'msg': msg})
 

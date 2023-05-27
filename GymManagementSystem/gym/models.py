@@ -91,6 +91,7 @@ class GalleryImage(models.Model):
 class SubscriptionPlans(models.Model):
     title = models.CharField(max_length=150)
     price = models.DecimalField(max_digits=5, decimal_places=2)
+    max_member = models.IntegerField(null = True, blank= True)
     highlight_status = models.BooleanField(default=False, null=True)
 
     def __str__(self):

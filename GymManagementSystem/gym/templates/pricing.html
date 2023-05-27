@@ -19,6 +19,11 @@
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">${{ plan.price }}<small class="text-muted fw-light">/mo</small></h1>
+            {% if plan.max_member != None %}
+            <p class="text-success">Member Capacity {{ plan.max_member }}</p>
+            {% else %}
+            <span></span>
+            {% endif %}
             <ul class="list-unstyled mt-3 mb-4">
               {% for feature in plan.subscriptionplansfeature_set.all %}
               <li>{{ feature.title }}</li>
