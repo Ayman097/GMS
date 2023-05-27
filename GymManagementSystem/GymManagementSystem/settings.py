@@ -138,3 +138,6 @@ JAZZMIN_SETTINGS = {
     'site_header': 'Gym Admin',
     
 }
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL= 'login'
