@@ -16,6 +16,11 @@ urlpatterns = [
     path('checkout_session/<int:plan_id>', views.checkout_session, name='checkout_session'),
     path('pay_success', views.pay_success, name='pay_success'),
     path('pay_cancel', views.pay_cancel, name='pay_cancel'),
+    # User Dashboard Start
+    path('user_dashboard', views.user_dashboard, name='user_dashboard'),
+    path('update_profile', views.update_profile, name='update_profile'),
+
+
     
 ]  
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 # Banners
@@ -125,10 +127,18 @@ class Subscriber(models.Model):
     user_img = models.ImageField(upload_to='user_imgs/')
 
     def __str__(self):
-        return self.user_suber
+        return self.user
 
     def image_tag(self):
-        return mark_safe(f'<img src="{self.user_img.url}" width="100" /> ')
+        if self.user_img:
+            return mark_safe(f'<img src="{self.user_img.url}" width="100" /> ')
+        else:
+            return 'No Image'
+
+@receiver(post_save, sender = User)
+def create_subscriber(sender, instance, created, **kwargs):
+    if created:
+        Subscriber.objects.create(user=instance)
     
 class Subscribtion(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE, null= True)

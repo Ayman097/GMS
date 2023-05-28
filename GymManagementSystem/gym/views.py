@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, Subscribtion, Subscriber
-from .forms import InquiryForm, SignUp
+from .forms import InquiryForm, SignUp, ProfileForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
@@ -119,3 +119,17 @@ def pay_success(request):
 def pay_cancel(request):
 	return render(request, 'pay_cancel.html')
 
+# User Dashboard Start
+
+def user_dashboard(request):
+    return render(request, 'user/dashboard.html')
+
+def update_profile(request):
+    msg = ''
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            msg = 'Data Has been Saved'
+    form = ProfileForm(instance=request.user)
+    return render(request, 'user/edit_profile.html', {'form': form, 'msg': msg})
