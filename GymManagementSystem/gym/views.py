@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature
 from .forms import InquiryForm, SignUp
+import stripe
 
 # Create your views here.
 def home(request):
@@ -66,4 +67,37 @@ def checkout(request, plan_id):
     plandetail = SubscriptionPlans.objects.get(pk=plan_id)
 
     return render(request, 'checkout.html', {'plan': plandetail })
+
+stripe.api_key = 'sk_test_51NCaD9DagQuIrgPNsnbjNpTndzXiQrEsCi2sgrzKczF2uoQYUa6PCCw83sjeTtFKhPv4mQxVjDgrYBXhMEVp3Vt400TpBZLGiQ'
+def checkout_session(request, plan_id):
+    plan= SubscriptionPlans.objects.get(pk=plan_id)
+    session=stripe.checkout.Session.create(
+		payment_method_types=['card'],
+		line_items=[{
+	      'price_data': {
+	        'currency': 'usd',
+	        'product_data': {
+	          'name': plan.title,
+	        },
+	        'unit_amount': int(plan.price),
+	      },
+	      'quantity': 1,
+	    }],
+	    mode='payment',
+
+	    #success_url='http://127.0.0.1:8000/pay_success?session_id={CHECKOUT_SESSION_ID}',
+	    #cancel_url='http://127.0.0.1:8000/pay_cancel',
+        success_url='http://127.0.0.1:8000/pay_success',
+        cancel_url='http://127.0.0.1:8000/pay_cancel',
+	    client_reference_id=plan_id
+	)
+    return redirect(session.url, code=303)
+
+# Success
+def pay_success(request):
+	return render(request, 'pay_success.html')
+
+# Cancel
+def pay_cancel(request):
+	return render(request, 'pay_cancel.html')
 
