@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, Subscribtion, Subscriber
 from .forms import InquiryForm, SignUp
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
+
 import stripe
+
 
 # Create your views here.
 def home(request):
@@ -89,6 +93,7 @@ def checkout_session(request, plan_id):
         cancel_url='http://127.0.0.1:8000/pay_cancel',
 	    client_reference_id=plan_id
 	)
+    
     return redirect(session.url, code=303)
 
 # Success
@@ -102,6 +107,12 @@ def pay_success(request):
         user=user,
         price=plan.price
     )
+    subject = 'Order Email'
+    html_content = get_template('orderemail.html').render({'title': plan.title})
+    from_email = 'Ayman\'s Gym'
+    msg = EmailMessage(subject, html_content, from_email, ['ayman@gmail.com'])
+    msg.content_subtype = "html"  # Main content is now text/html
+    msg.send()
     return render(request, 'pay_success.html')
 
 # Cancel
