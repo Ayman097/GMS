@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banners, Service, Pages, Faq, Inquiry, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, PlanDiscount
+from .models import Banners, Service, Pages, Faq, Inquiry, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, PlanDiscount, Subscriber, Subscribtion
 
 class BannerAdmin(admin.ModelAdmin):
     list_display = ('alt_text', 'image_tag')
@@ -44,3 +44,11 @@ class PlanDiscountAdmin(admin.ModelAdmin):
     list_editable = ('total_months', 'total_discount')
     list_display = ('subplan', 'total_months', 'total_discount')
 admin.site.register(PlanDiscount, PlanDiscountAdmin)
+
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('user', 'mobile', 'user_img')
+admin.site.register(Subscriber, SubscriberAdmin)
+
+class SubscribtionAdmin(admin.ModelAdmin):
+    list_display = ('user', 'plan', 'price')
+admin.site.register(Subscribtion, SubscribtionAdmin)
