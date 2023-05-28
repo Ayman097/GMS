@@ -106,3 +106,12 @@ class SubscriptionPlansFeature(models.Model):
 
     def __str__(self):
         return self.title
+
+# Subscription Discount
+class PlanDiscount(models.Model):
+    subplan = models.ForeignKey(SubscriptionPlans, on_delete= models.CASCADE, null= True)
+    total_months = models.IntegerField()
+    total_discount = models.IntegerField()
+
+    def __str__(self):
+        return str(self.total_months)
