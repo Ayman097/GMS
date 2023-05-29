@@ -124,7 +124,7 @@ class Subscriber(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE, null= True)
     mobile = models.IntegerField()
     address = models.TextField()
-    user_img = models.ImageField(upload_to='user_imgs/')
+    user_img = models.ImageField(upload_to='user_imgs/', null= True)
 
     def __str__(self):
         return self.user
@@ -144,4 +144,21 @@ class Subscribtion(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE, null= True)
     plan = models.ForeignKey(SubscriptionPlans, on_delete= models.CASCADE, null= True)
     price = models.IntegerField()
+
+class Trainer(models.Model):
+    name = models.CharField(max_length=100)
+    mobile = models.IntegerField()
+    address = models.TextField()
+    is_active = models.BooleanField(default=False)
+    detail = models.TextField()
+    trainer_img = models.ImageField(upload_to='trainers/')
+
+    def __str__(self):
+        return self.name
+    
+    def image_tag(self):
+        if self.trainer_img:
+            return mark_safe(f'<img src="{self.trainer_img.url}" width="100" /> ')
+        else:
+            return 'No Image'
 
