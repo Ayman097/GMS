@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banners, Service, Pages, Faq, Inquiry, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, PlanDiscount, Subscriber, Subscribtion, Trainer
+from .models import *
 
 class BannerAdmin(admin.ModelAdmin):
     list_display = ('alt_text', 'image_tag')
@@ -56,3 +56,7 @@ admin.site.register(Subscribtion, SubscribtionAdmin)
 class TrainerAdmin(admin.ModelAdmin):
     list_display = ('name', 'mobile', 'image_tag', 'is_active')
 admin.site.register(Trainer, TrainerAdmin)
+
+class NotifyAdmin(admin.ModelAdmin):
+	list_display=('notify_detail','read_by_user','read_by_trainer')
+admin.site.register(Notify,NotifyAdmin)

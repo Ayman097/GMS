@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, Subscribtion, Subscriber, Trainer
+from .models import *
 from .forms import InquiryForm, SignUp, ProfileForm, TrainerLoginForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
@@ -154,4 +154,8 @@ def trainer_login(request):
 def trainer_logout(request):
     del request.session['trainerLogin']
     return redirect('home')
+
+def notification(request):
+    data = Notify.objects.all().order_by('-id')
+    return render(request, 'notify.html', {'data': data})
 

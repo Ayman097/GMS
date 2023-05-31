@@ -22,6 +22,8 @@ urlpatterns = [
     # Trainer Login
     path('trainer_login', views.trainer_login, name='trainer_login'),
     path('trainer_logout', views.trainer_logout, name='trainer_logout'),
+    # Notify
+    path('notification', views.notification, name='notification'),
 
 
     

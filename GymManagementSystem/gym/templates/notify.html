@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Main Start -->
+    <main>
+		<!-- Services -->
+		<section class="container my-4">
+			<div class="row">
+                <div class="col-3">
+                    {% include 'user/left-sidebar.html' %}
+                </div>
+                <div class="col-9">
+                    <h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary totalunread">123</span></h3>
+					<span class="ajaxRes"></span>
+					<ul class="list-group notif-list">
+						<li class="list-group-item">This is notification 1
+                            <i class="bi bi-check2-square text-success"></i>
+                            <button class="btn btn-sm btn-secondary float-end">Mark As Read</button>
+                        </li>
+					</ul>
+                </div>
+            </div>
+		</section>
+		<!-- End -->
+    </main>
+    <!-- End -->
+{% endblock %}
