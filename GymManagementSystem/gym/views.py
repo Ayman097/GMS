@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, Subscribtion, Subscriber
-from .forms import InquiryForm, SignUp, ProfileForm
+from .models import Banners, Service, Pages, Faq, Gallery, GalleryImage, SubscriptionPlans, SubscriptionPlansFeature, Subscribtion, Subscriber, Trainer
+from .forms import InquiryForm, SignUp, ProfileForm, TrainerLoginForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
@@ -133,3 +133,25 @@ def update_profile(request):
             msg = 'Data Has been Saved'
     form = ProfileForm(instance=request.user)
     return render(request, 'user/edit_profile.html', {'form': form, 'msg': msg})
+
+# Trainer Login
+def trainer_login(request):
+    msg = ''
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        trainers = Trainer.objects.filter(username=username, password=password).count()
+        if trainers > 0:
+            request.session['trainerLogin'] = True
+            return redirect('/trainer_dashboard')
+        else:
+            msg = "Invalid!!"
+        
+    form = TrainerLoginForm(request.POST)
+    return render(request, 'trainer/login.html', {'form': form, 'msg': msg})
+
+# Trainer Logout
+def trainer_logout(request):
+    del request.session['trainerLogin']
+    return redirect('home')
+
