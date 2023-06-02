@@ -24,6 +24,7 @@ urlpatterns = [
     path('trainer_logout', views.trainer_logout, name='trainer_logout'),
     # Notify
     path('notification', views.notification, name='notification'),
+    path('get_notify', views.get_notify, name='get_notify'),
 
 
     
